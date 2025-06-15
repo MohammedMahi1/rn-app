@@ -13,7 +13,8 @@ module.exports = {
     colors:{
       "paper":"#1c1c1c",
       "white":"#fafafa",
-      "line":"#fafafa40"
+      "line":"#fafafa40",
+      "transparent":"#ffffff00"
     }
   },
   plugins: [],

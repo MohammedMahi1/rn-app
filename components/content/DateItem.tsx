@@ -11,17 +11,20 @@ type DateItemProps = {
   title: string;
   data?: Array<object>;
 }
+type TaskProps = {
+  title: string;
+  isChecked: boolean
+}
 
-
-const Task = () => {
-  const [isChecked, setIsChecked] = useState(false)
+const Task = ({ isChecked, title }: TaskProps) => {
+  const [isClick, setIsChecked] = useState(isChecked)
   return (
     <View className='w-fit flex flex-row justify-start items-center'>
       <Checkbox
         size={36}
         color='#FF6600'
-        status={isChecked ? 'checked' : 'unchecked'}
-        onPress={() => setIsChecked(!isChecked)}
+        status={isClick ? 'checked' : 'unchecked'}
+        onPress={() => setIsChecked(!isClick)}
       />
       <Span className='text-white'>React native</Span>
     </View>
@@ -29,9 +32,10 @@ const Task = () => {
 }
 
 const DateItem = ({ data, title }: DateItemProps) => {
-
   const [isOpen, setIsOpen] = useState<boolean>(false)
   console.log(isOpen);
+  const [inputValue, setInputValue] = useState('')
+  console.log(inputValue);
 
   return (
     <SafeAreaView className={twMerge('border-line border-b border-t items-start justify-between px-12 h-fit overflow-hidden')}>
@@ -41,17 +45,27 @@ const DateItem = ({ data, title }: DateItemProps) => {
       {
         isOpen &&
         <View className={twMerge("flex justify-between gap-10")}>
-      
-        {/* <FlatList
-          renderItem={item => <Task />}
+
+          {/* <FlatList
+          renderItem={item => <Task 
+            title={inputValue}
+            isChecked={false}
+          />}
           data={data}
           /> */}
-        <Task  />
-        <Input
-          placeholder='Add a new task...'
+          <Task
+            title={inputValue}
+            isChecked={false}
           />
-      </View>
-  }
+          <Input
+            returnKeyType="done"
+            onSubmitEditing={()=>console.log(inputValue)}
+            value={inputValue}
+            onChangeText={setInputValue}
+            placeholder='Add a new task...'
+          />
+        </View>
+      }
     </SafeAreaView>
   )
 }

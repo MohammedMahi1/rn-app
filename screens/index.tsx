@@ -17,7 +17,6 @@ const Index = () => {
     className='bg-paper'
     style={{
       flex:1
-
     }}
     >
       <FlatList
@@ -26,7 +25,7 @@ const Index = () => {
         renderItem={({ item }) => <DateItem
           title={item.day}
         />}
-        
+
         keyExtractor={item => item.id.toString()}
       />
     </View>

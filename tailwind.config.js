@@ -14,7 +14,8 @@ module.exports = {
       "paper":"#1c1c1c",
       "white":"#fafafa",
       "line":"#fafafa40",
-      "transparent":"#ffffff00"
+      "transparent":"#ffffff00",
+      "primary":"#FF6600"
     }
   },
   plugins: [],

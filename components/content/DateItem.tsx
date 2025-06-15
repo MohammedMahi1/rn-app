@@ -1,7 +1,7 @@
+import { Checkbox } from '@futurejj/react-native-checkbox';
 import Container from 'components/ui/Container';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
-import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,13 +14,14 @@ type DateItemProps = {
 
 
 const Task = () => {
-  const [isChecked,setIsChecked] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
   return (
-    <View className='w-fit flex justify-start items-'>
+    <View className='w-fit flex flex-row justify-start items-center'>
       <Checkbox
-        value={isChecked}
-        onValueChange={()=>setIsChecked(!isChecked)}
-        className='p-10' 
+        size={36}
+        color='#FF6600'
+        status={isChecked ? 'checked' : 'unchecked'}
+        onPress={() => setIsChecked(!isChecked)}
       />
       <Span className='text-white'>React native</Span>
     </View>
@@ -33,20 +34,24 @@ const DateItem = ({ data, title }: DateItemProps) => {
   console.log(isOpen);
 
   return (
-    <SafeAreaView className={twMerge('border-line border-b border-t items-start justify-between px-12 h-fit')}>
-      <Pressable className='py-12' onPress={() => setIsOpen(!isOpen)} >
+    <SafeAreaView className={twMerge('border-line border-b border-t items-start justify-between px-12 h-fit overflow-hidden')}>
+      <Pressable className='py-10' onPress={() => setIsOpen(!isOpen)} >
         <Span className='text-7xl font-bold text-gray-800 text-white'>{title}</Span>
       </Pressable>
-      <View className={twMerge(isOpen ? "h-96" : "h-0", "flex justify-between")}>
+      {
+        isOpen &&
+        <View className={twMerge("flex justify-between gap-10")}>
+      
         {/* <FlatList
           renderItem={item => <Task />}
           data={data}
-        /> */}
-  <Task/>
+          /> */}
+        <Task  />
         <Input
           placeholder='Add a new task...'
-        />
+          />
       </View>
+  }
     </SafeAreaView>
   )
 }

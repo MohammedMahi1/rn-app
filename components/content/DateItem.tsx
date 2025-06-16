@@ -1,11 +1,12 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
-import Container from 'components/ui/Container';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
+import { PrismaClient } from '@prisma/client/react-native';
+
 
 type DateItemProps = {
   title: string;
@@ -17,6 +18,7 @@ type TaskProps = {
 }
 
 const Task = ({ isChecked, title }: TaskProps) => {
+
   const [isClick, setIsChecked] = useState(isChecked)
   return (
     <View className='w-fit flex flex-row justify-start items-center'>
@@ -32,15 +34,21 @@ const Task = ({ isChecked, title }: TaskProps) => {
 }
 
 const DateItem = ({ data, title }: DateItemProps) => {
+
+
+  const baseClient = new PrismaClient();
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  console.log(isOpen);
   const [inputValue, setInputValue] = useState('')
-  console.log(inputValue);
+
+  const getHandler = () => {
+    console.log(baseClient.user.findMany());
+  }
+  // console.log(prisma.user.findMany());
 
   return (
-    <SafeAreaView className={twMerge('border-line border-b border-t items-start justify-between px-12 h-fit overflow-hidden')}>
-      <Pressable className='py-10' onPress={() => setIsOpen(!isOpen)} >
-        <Span className='text-7xl font-bold text-gray-800 text-white'>{title}</Span>
+    <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
+      <Pressable className='py-4' onPress={() => setIsOpen(!isOpen)} >
+        <Span className='text-6xl font-bold text-gray-800 text-white'>{title}</Span>
       </Pressable>
       {
         isOpen &&
@@ -59,7 +67,9 @@ const DateItem = ({ data, title }: DateItemProps) => {
           />
           <Input
             returnKeyType="done"
-            onSubmitEditing={()=>console.log(inputValue)}
+            onSubmitEditing={
+              getHandler
+            }
             value={inputValue}
             onChangeText={setInputValue}
             placeholder='Add a new task...'

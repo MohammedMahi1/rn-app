@@ -1,11 +1,17 @@
 import '@prisma/react-native';
 import { PrismaClient } from '@prisma/client/react-native';
+import { reactiveHooksExtension } from '@prisma/react-native';
 
-const baseClient = new PrismaClient();
+
+const basePrisma = new PrismaClient({
+  log: [{ emit: 'event', level: 'query' }],
+});
+
+export const hooksPrisma = basePrisma.$extends(reactiveHooksExtension());
 
 export async function initializeDb() {
   try {
-    baseClient.$applyPendingMigrations();
+    basePrisma.$applyPendingMigrations();
   } catch (e) {
     console.error(`failed to apply migrations: ${e}`);
     throw new Error(

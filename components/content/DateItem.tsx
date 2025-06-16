@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
-import { PrismaClient } from '@prisma/client/react-native';
+import { hooksPrisma } from 'db';
 
 
 type DateItemProps = {
@@ -34,14 +34,12 @@ const Task = ({ isChecked, title }: TaskProps) => {
 }
 
 const DateItem = ({ data, title }: DateItemProps) => {
+  const baseClient = hooksPrisma.user.findMany()
 
-
-  const baseClient = new PrismaClient();
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
-
   const getHandler = () => {
-    console.log(baseClient.user.findMany());
+    console.log(baseClient);
   }
   // console.log(prisma.user.findMany());
 

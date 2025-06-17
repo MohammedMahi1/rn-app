@@ -9,9 +9,7 @@
     "experiments": {
       "tsconfigPaths": true
     },
-    "plugins": [
-      "@prisma/react-native"
-    ],
+    "plugins": [],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

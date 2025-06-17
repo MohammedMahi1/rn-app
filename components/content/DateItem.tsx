@@ -1,11 +1,13 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
+import { db } from 'db/db';
+import { usersTable } from 'db/schema';
 import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
-import { hooksPrisma } from 'db';
+
 
 
 type DateItemProps = {
@@ -34,12 +36,13 @@ const Task = ({ isChecked, title }: TaskProps) => {
 }
 
 const DateItem = ({ data, title }: DateItemProps) => {
-  const baseClient = hooksPrisma.user.findMany()
+  const test = db.select().from(usersTable).toSQL()
+
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
   const getHandler = () => {
-    console.log(baseClient);
+    console.log(test);
   }
   // console.log(prisma.user.findMany());
 

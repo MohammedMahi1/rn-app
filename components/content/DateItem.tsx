@@ -2,8 +2,8 @@ import { Checkbox } from '@futurejj/react-native-checkbox';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
 import { db } from 'db/db';
-import { usersTable } from 'db/schema';
-import { useState } from 'react'
+import { monTable } from 'db/schema';
+import { useEffect, useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
@@ -36,16 +36,24 @@ const Task = ({ isChecked, title }: TaskProps) => {
 }
 
 const DateItem = ({ data, title }: DateItemProps) => {
-  const test = db.select().from(usersTable).toSQL()
-
-
+  const [items, setItems] = useState<typeof monTable.$inferSelect[] | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
   const getHandler = () => {
-    console.log(test);
+    console.log(items);
   }
-  // console.log(prisma.user.findMany());
-
+  useEffect(() => {
+    (async () => {
+      await db.insert(monTable).values([
+        {
+          isChecked:false,
+          task:"Laravel 11+"
+        },
+      ])
+      const users = await db.select().from(monTable);
+      setItems(users);      
+    })
+  }, [])
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
       <Pressable className='py-4' onPress={() => setIsOpen(!isOpen)} >

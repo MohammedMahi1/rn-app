@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
-
+import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
+import migrations from 'drizzle/migrations';
 
 
 type DateItemProps = {
@@ -35,25 +36,36 @@ const Task = ({ isChecked, title }: TaskProps) => {
   )
 }
 
+
+
+
+
 const DateItem = ({ data, title }: DateItemProps) => {
-  const [items, setItems] = useState<typeof monTable.$inferSelect[] | null>(null);
+
+  const [items, setItems] = useState<any>();
+  useEffect(() => {
+       db.insert(monTable).values([
+          {
+            id:2,
+            isChecked: false,
+            task: "Laravel 11+"
+          },
+      ]);
+      const users = db.select().from(monTable);
+      setItems(users);
+
+    
+  }, []);
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
   const getHandler = () => {
-    console.log(items);
+
+    console.log("g");
+    
   }
-  useEffect(() => {
-    (async () => {
-      await db.insert(monTable).values([
-        {
-          isChecked:false,
-          task:"Laravel 11+"
-        },
-      ])
-      const users = await db.select().from(monTable);
-      setItems(users);      
-    })
-  }, [])
+    console.log(items)
+
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
       <Pressable className='py-4' onPress={() => setIsOpen(!isOpen)} >
@@ -70,10 +82,18 @@ const DateItem = ({ data, title }: DateItemProps) => {
           />}
           data={data}
           /> */}
-          <Task
-            title={inputValue}
-            isChecked={false}
+          {
+            items === null ||items === undefined || items.length === 0 ?
+            <Span className='text-white'>Empty</Span>
+            :
+            items.map((e:any)=>{
+              return <Task
+            key={e.id}
+            isChecked={e.isChecked}
+            title={e.task}
           />
+            })
+          }
           <Input
             returnKeyType="done"
             onSubmitEditing={

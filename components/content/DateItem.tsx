@@ -2,10 +2,13 @@ import { Checkbox } from '@futurejj/react-native-checkbox';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
 import { monday } from 'db/schema';
+import { useAppDispatch, useAppSelector } from 'hooks/store';
 import useDb from 'hooks/useDb';
 import { useEffect, useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
+import { getThunkTasks } from 'store/async/thunkTasks';
 import { twMerge } from 'tailwind-merge';
 
 type DateItemProps = {
@@ -41,16 +44,12 @@ const Task = ({ isChecked, title }: TaskProps) => {
 const DateItem = ({ data, title }: DateItemProps) => {
   const db = useDb()
   const [items, setItems] = useState<typeof monday.$inferSelect[] | null>(null)
-
-  useEffect(() => {
-    (async () => {
-      const data = await db.select().from(monday);
-      setItems(data)
-    })
-
-  },[])
+  const dispatch = useAppDispatch()
+  console.log(dispatch(getThunkTasks()));
+  
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
+
   const getHandler = () => {
     console.log("dfvdf");
       db.insert(monday).values(

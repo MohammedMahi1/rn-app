@@ -1,10 +1,10 @@
-import { cn } from '@/lib/cn'
+
 import { cva, VariantProps } from 'class-variance-authority'
+import { cn } from 'lib/cn'
 import React, { ReactNode } from 'react'
-import { ButtonProps, Pressable, PressableProps, Text, useColorScheme, ViewProps } from 'react-native'
-import { Label } from './typographie'
+import { Pressable, PressableProps, Text } from 'react-native'
+
 import { twMerge } from 'tailwind-merge'
-import { Link, LinkProps } from 'expo-router'
 
 
 

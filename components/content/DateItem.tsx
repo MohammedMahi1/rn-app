@@ -1,4 +1,5 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
+import Button from 'components/ui/button';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
 import { monday } from 'db/schema';
@@ -8,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
-import { getThunkTasks } from 'store/async/thunkTasks';
+import { getThunkTasks, insertInThunk } from 'store/async/thunkTasks';
 import { twMerge } from 'tailwind-merge';
 
 type DateItemProps = {
@@ -43,24 +44,16 @@ const Task = ({ isChecked, title }: TaskProps) => {
 
 const DateItem = ({  title }: DateItemProps) => {
   const db = useDb()
-  const [items, setItems] = useState<typeof monday.$inferSelect[] | null>(null)
   const dispatch = useAppDispatch()
-  console.log(dispatch(getThunkTasks()));
   const data = useAppSelector((state)=>state.tasks)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
-
+useEffect(()=>{
+  dispatch(getThunkTasks())
+},[dispatch])
   const getHandler = () => {
-    console.log("dfvdf");
-      db.insert(monday).values(
-        {
-          task: "Laravel 11+",
-        },
-      ).then(()=>{
-        console.log("gg");
-      }).catch((er)=>{
-        console.log(er);
-      })
+dispatch(insertInThunk("wedwedwed"))
+
   }
 
   return (
@@ -87,6 +80,7 @@ const DateItem = ({  title }: DateItemProps) => {
 
               
           }
+          <Button onPress={getHandler}>dcsdcsc</Button>
           <Input
             returnKeyType="done"
             onSubmitEditing={

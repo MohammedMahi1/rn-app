@@ -10,7 +10,7 @@ import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import migrations from 'drizzle/migrations';
 import { ActivityIndicator } from 'react-native';
 import { Provider } from 'react-redux';
-import { index } from 'store';
+import { store } from 'store';
 
 export default function App() {
   const DATA_BASE = "tasks"
@@ -18,7 +18,7 @@ export default function App() {
   const db = drizzle(expoDb);
   const { success, error } = useMigrations(db, migrations);
   return (
-    <Provider store={index}>
+    <Provider store={store}>
 
     <Suspense fallback={<ActivityIndicator size="large" />}>
       <SQLiteProvider

@@ -12,7 +12,7 @@ const initialState:StateType = {
 const taskSlice = createSlice({
     name:"task",
     initialState,
-    reducers:{}
+    reducers:{},
 })
 
 

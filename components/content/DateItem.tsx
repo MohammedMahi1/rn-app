@@ -1,15 +1,12 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
-import { db } from 'db/db';
-import { monTable } from 'db/schema';
+import { monday } from 'db/schema';
+import useDb from 'hooks/useDb';
 import { useEffect, useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
-import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
-import migrations from 'drizzle/migrations';
-
 
 type DateItemProps = {
   title: string;
@@ -19,6 +16,7 @@ type TaskProps = {
   title: string;
   isChecked: boolean
 }
+
 
 const Task = ({ isChecked, title }: TaskProps) => {
 
@@ -41,30 +39,30 @@ const Task = ({ isChecked, title }: TaskProps) => {
 
 
 const DateItem = ({ data, title }: DateItemProps) => {
+  const db = useDb()
+  const [items, setItems] = useState<typeof monday.$inferSelect[] | null>(null)
 
-  const [items, setItems] = useState<any>();
   useEffect(() => {
-       db.insert(monTable).values([
-          {
-            id:2,
-            isChecked: false,
-            task: "Laravel 11+"
-          },
-      ]);
-      const users = db.select().from(monTable);
-      setItems(users);
+    (async () => {
+      const data = await db.select().from(monday);
+      setItems(data)
+    })
 
-    
-  }, []);
-
+  },[])
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
   const getHandler = () => {
-
-    console.log("g");
-    
+    console.log("dfvdf");
+      db.insert(monday).values(
+        {
+          task: "Laravel 11+",
+        },
+      ).then(()=>{
+        console.log("gg");
+      }).catch((er)=>{
+        console.log(er);
+      })
   }
-    console.log(items)
 
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
@@ -83,16 +81,16 @@ const DateItem = ({ data, title }: DateItemProps) => {
           data={data}
           /> */}
           {
-            items === null ||items === undefined || items.length === 0 ?
-            <Span className='text-white'>Empty</Span>
-            :
-            items.map((e:any)=>{
-              return <Task
-            key={e.id}
-            isChecked={e.isChecked}
-            title={e.task}
-          />
-            })
+            items === null || items === undefined || items.length === 0 ?
+              <Span className='text-white'>Empty</Span>
+              :
+              items.map((e: any) => {
+                return <Task
+                  key={e.id}
+                  isChecked={e.isChecked}
+                  title={e.task}
+                />
+              })
           }
           <Input
             returnKeyType="done"

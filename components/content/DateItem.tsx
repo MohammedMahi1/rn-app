@@ -41,12 +41,12 @@ const Task = ({ isChecked, title }: TaskProps) => {
 
 
 
-const DateItem = ({ data, title }: DateItemProps) => {
+const DateItem = ({  title }: DateItemProps) => {
   const db = useDb()
   const [items, setItems] = useState<typeof monday.$inferSelect[] | null>(null)
   const dispatch = useAppDispatch()
   console.log(dispatch(getThunkTasks()));
-  
+  const data = useAppSelector((state)=>state.tasks)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
 
@@ -80,16 +80,12 @@ const DateItem = ({ data, title }: DateItemProps) => {
           data={data}
           /> */}
           {
-            items === null || items === undefined || items.length === 0 ?
+            data.task === null || data.task === undefined ?
               <Span className='text-white'>Empty</Span>
               :
-              items.map((e: any) => {
-                return <Task
-                  key={e.id}
-                  isChecked={e.isChecked}
-                  title={e.task}
-                />
-              })
+              <Span className='text-white'>{data.task}</Span>
+
+              
           }
           <Input
             returnKeyType="done"

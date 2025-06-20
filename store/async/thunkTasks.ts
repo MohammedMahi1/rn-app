@@ -7,8 +7,10 @@ export const getThunkTasks = createAsyncThunk("getTasks",async(_,thunkAPI)=>{
       const db = useDb()
     try {
       const data = await db.select().from(monday)
+      console.log("fff");
+      
       return data
     } catch (error) {
-        console.log(rejectWithValue(error));  
+        // console.log(rejectWithValue(error));  
     }
 })

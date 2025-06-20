@@ -21,6 +21,8 @@ const taskSlice = createSlice({
         builder.addCase(getThunkTasks.fulfilled,(state,{payload})=>{
             state.isChecked = true;
             const task = payload?.find((e)=>e.task)?.task;
+            console.log(task);
+            
             state.task = task
         });
         builder.addCase(getThunkTasks.rejected,(state,{payload})=>{

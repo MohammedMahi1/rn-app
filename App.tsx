@@ -16,6 +16,7 @@ export default function App() {
   const db = drizzle(expoDb);
   const { success, error } = useMigrations(db, migrations);
   return (
+    
     <Suspense fallback={<ActivityIndicator size="large" />}>
       <SQLiteProvider
         databaseName={DATA_BASE}

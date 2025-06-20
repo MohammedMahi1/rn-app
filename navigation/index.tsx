@@ -8,6 +8,7 @@ export type RootStackParamList = {
 export default function RootStack() {
 
   return (
+
         <NavigationContainer >
           <MainRoute />
         </NavigationContainer>

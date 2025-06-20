@@ -16,10 +16,10 @@ const taskSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(getThunkTasks.fulfilled,(state,{payload})=>{
+            console.log("gggggggggggg");
             
         })  
     }
 })
-
 
 export default taskSlice.reducer

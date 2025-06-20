@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getThunkTasks } from "store/async/thunkTasks";
 
 
 type StateType = {
@@ -13,6 +14,11 @@ const taskSlice = createSlice({
     name:"task",
     initialState,
     reducers:{},
+    extraReducers:(builder)=>{
+        builder.addCase(getThunkTasks.fulfilled,(state,{payload})=>{
+            
+        })  
+    }
 })
 
 

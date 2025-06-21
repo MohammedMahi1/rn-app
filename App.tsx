@@ -14,7 +14,9 @@ import { store } from 'store';
 
 export default function App() {
   const DATA_BASE = "tasks"
-  const expoDb = openDatabaseSync(DATA_BASE);
+  const expoDb = openDatabaseSync(DATA_BASE,{
+    
+  });
   const db = drizzle(expoDb);
   const { success, error } = useMigrations(db, migrations);
   return (

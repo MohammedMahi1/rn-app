@@ -48,14 +48,23 @@ const DateItem = ({  title }: DateItemProps) => {
   const data = useAppSelector((state)=>state.tasks)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
-useEffect(()=>{
-  dispatch(getThunkTasks())
-},[dispatch])
+ const [items, setItems] = useState<typeof monday.$inferSelect[]|null >(null);
+  // useEffect(() => {
+  //     const users = db.select().from(monday).toSQL();
+  //     setItems(users);
+
+  // }, []);
+
   const getHandler = () => {
-dispatch(insertInThunk("wedwedwed"))
+              db.insert(monday).values([
+          {
+            task: "Laravel 11+"
+          },
+      ]);
+    console.log(items);
 
+    
   }
-
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
       <Pressable className='py-4' onPress={() => setIsOpen(!isOpen)} >

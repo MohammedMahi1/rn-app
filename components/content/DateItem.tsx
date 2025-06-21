@@ -60,7 +60,13 @@ const DateItem = ({  title }: DateItemProps) => {
           {
             task: "Laravel 11+"
           },
-      ]);
+      ]).then(()=>{
+        console.log("gg")
+        
+      }).catch((err)=>{
+        console.log(err)
+        
+      });
     console.log(items);
 
     

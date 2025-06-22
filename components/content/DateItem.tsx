@@ -44,6 +44,7 @@ const DateItem = ({ title }: DateItemProps) => {
   // const db = useDb()
   // const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [data,setData]= useState<any>()
   const [inputValue, setInputValue] = useState('')
   const [tasks, setTasks] = useState()
   const dispatch = useAppDispatch()
@@ -56,14 +57,18 @@ const DateItem = ({ title }: DateItemProps) => {
         }
       ]
     });
-    dispatch(insertInThunk(jsonValue))
+    dispatch(insertInThunk(jsonValue)).then(async()=>{
+      const res = await AsyncStorage.getItem('tasks');
+      const jsonRes = JSON.parse(res)
+      setData(jsonRes)
+    })
   }
 
 
   const getHandler = async () => {
     try {
-      const res = await AsyncStorage.getItem('tasks');
-      console.log(res);
+      await AsyncStorage.getItem('tasks');
+      console.log(data.monday);
       
     } catch (err) {
       console.log(err);

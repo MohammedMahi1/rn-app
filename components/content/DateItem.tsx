@@ -1,15 +1,11 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
-import Button from 'components/ui/button';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
-import { monday } from 'db/schema';
-import { useAppDispatch, useAppSelector } from 'hooks/store';
-import useDb from 'hooks/useDb';
-import { useEffect, useState } from 'react'
+import { useAppSelector } from 'hooks/store';
+
+import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
-import { getThunkTasks, insertInThunk } from 'store/async/thunkTasks';
 import { twMerge } from 'tailwind-merge';
 
 type DateItemProps = {

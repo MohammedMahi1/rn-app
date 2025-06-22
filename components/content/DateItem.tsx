@@ -49,11 +49,6 @@ const DateItem = ({  title }: DateItemProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
  const [items, setItems] = useState<typeof monday.$inferSelect[]|null >(null);
-  // useEffect(() => {
-  //     const users = db.select().from(monday).toSQL();
-  //     setItems(users);
-
-  // }, []);
 
   const getHandler = () => {
               db.insert(monday).values([

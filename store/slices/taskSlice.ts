@@ -3,30 +3,57 @@ import { insertInThunk } from "store/async/thunkTasks";
 
 
 type StateType = {
-    task:string | undefined,
-    isChecked:boolean
-}[]
+   [key:string]:object 
+}
 
-const initialState:StateType = []
+const initialState:StateType = {
+    "monday": [
+        {
+            id: 1,
+            task: "React js",
+            isChecked: false
+        }
+    ],
+    "tuesday": [
+        {
+            id: 1,
+            task: "React js",
+            isChecked: false
+        }
+    ],
+}
 const taskSlice = createSlice({
-    name:"task",
+    name: "task",
     initialState,
-    reducers:{},
-    extraReducers:(builder)=>{
+    reducers: {},
+    extraReducers: (builder) => {
         //Add data
-        builder.addCase(insertInThunk.pending,(state,action)=>{
+        builder.addCase(insertInThunk.pending, (state, action) => {
             console.log("pendding");
-            
+
         })
-        builder.addCase(insertInThunk.fulfilled,(state,action)=>{
+        builder.addCase(insertInThunk.fulfilled, (state, action) => {
             console.log("full");
-            
+
         })
-        builder.addCase(insertInThunk.rejected,(state,action)=>{
+        builder.addCase(insertInThunk.rejected, (state, action) => {
             console.log("reject");
-            
+
         })
 
+
+        //Get data 
+        builder.addCase(insertInThunk.pending, (state, action) => {
+            console.log("pendding");
+
+        })
+        builder.addCase(insertInThunk.fulfilled, (state, action) => {
+            console.log("full");
+        })
+        builder.addCase(insertInThunk.rejected, (state, action) => {
+            console.log("reject");
+
+        })
     }
 })
 

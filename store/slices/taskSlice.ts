@@ -1,26 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { insertInThunk } from "store/async/thunkTasks";
+import { Day, Task } from "types/task";
 
 
-type StateType = {
-   [key:string]:object 
-}
 
+export type StateType = {
+  [key in Day]: Task[];
+};
 const initialState:StateType = {
-    "monday": [
-        {
-            id: 1,
-            task: "React js",
-            isChecked: false
-        }
-    ],
-    "tuesday": [
-        {
-            id: 1,
-            task: "React js",
-            isChecked: false
-        }
-    ],
+    "monday":[],
+    "friday":[],
+    "saturday":[],
+    "sunday":[],
+    "thursday":[],
+    "tuesday":[],
+    "wednesday":[]
 }
 const taskSlice = createSlice({
     name: "task",
@@ -34,7 +28,6 @@ const taskSlice = createSlice({
         })
         builder.addCase(insertInThunk.fulfilled, (state, action) => {
             console.log("full");
-
         })
         builder.addCase(insertInThunk.rejected, (state, action) => {
             console.log("reject");

@@ -6,6 +6,7 @@ import { useAppSelector } from 'hooks/store';
 import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { tasksSelector } from 'store/selectors/taskSelector';
 import { twMerge } from 'tailwind-merge';
 
 type DateItemProps = {
@@ -41,12 +42,14 @@ const Task = ({ isChecked, title }: TaskProps) => {
 const DateItem = ({  title }: DateItemProps) => {
   // const db = useDb()
   // const dispatch = useAppDispatch()
-  const data = useAppSelector((state)=>state.tasks)
+  const data = useAppSelector(tasksSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
-
+  const insertHandler = () => {
+    console.log(data);
+  }
   const getHandler = () => {
-    console.log("gg");
+    console.log(data);
   }
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
@@ -64,18 +67,10 @@ const DateItem = ({  title }: DateItemProps) => {
           />}
           data={data}
           /> */}
-          {
-            data.task === null || data.task === undefined ?
-              <Span className='text-white'>Empty</Span>
-              :
-              <Span className='text-white'>{data.task}</Span>
-
-              
-          }
           <Input
             returnKeyType="done"
             onSubmitEditing={
-              getHandler
+              insertHandler
             }
             value={inputValue}
             onChangeText={setInputValue}

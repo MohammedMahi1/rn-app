@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getThunkTasks, insertInThunk } from "store/async/thunkTasks";
+import { insertInThunk } from "store/async/thunkTasks";
 
 
 type StateType = {
@@ -18,17 +18,6 @@ const taskSlice = createSlice({
             
         })
 
-        //Get data
-        builder.addCase(getThunkTasks.pending,(state,{payload})=>{
-            console.log("pending");
-        });
-        builder.addCase(getThunkTasks.fulfilled,(state,{payload})=>{
-
-            console.log("dfvdfvdf");
-        });
-        builder.addCase(getThunkTasks.rejected,(state,{payload})=>{
-            console.log("errro");
-        })  
     }
 })
 

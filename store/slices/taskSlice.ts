@@ -5,11 +5,8 @@ import { getThunkTasks, insertInThunk } from "store/async/thunkTasks";
 type StateType = {
     task:string | undefined,
     isChecked:boolean
-}
-const initialState:StateType = {
-    isChecked:false,
-    task:undefined
-}
+}[]
+const initialState:StateType = []
 const taskSlice = createSlice({
     name:"task",
     initialState,
@@ -26,9 +23,7 @@ const taskSlice = createSlice({
             console.log("pending");
         });
         builder.addCase(getThunkTasks.fulfilled,(state,{payload})=>{
-            state.isChecked = true;
-            const task = payload?.find((e)=>e.task)?.task;
-            state.task = task
+
             console.log("dfvdfvdf");
         });
         builder.addCase(getThunkTasks.rejected,(state,{payload})=>{

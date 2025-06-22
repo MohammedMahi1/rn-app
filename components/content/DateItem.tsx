@@ -48,11 +48,17 @@ const DateItem = ({  title }: DateItemProps) => {
   const [tasks,setTasks] = useState()
   const dispatch = useAppDispatch()
   const insertHandler = () => {
-    dispatch(insertInThunk("ggbgfbfbf"))
+    dispatch(insertInThunk(`
+      {
+       monday:[
+       tasks:"React native with expo router",
+       isChecked : false
+       ] 
+      }
+      `))
   }
   const getHandler = async() => {
     console.log("dfvd");
-    
   }
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
@@ -73,8 +79,8 @@ const DateItem = ({  title }: DateItemProps) => {
           <Input
             returnKeyType="done"
             onSubmitEditing={
-              getHandler
-              // insertHandler
+              // getHandler
+              insertHandler
             }
             value={inputValue}
             onChangeText={setInputValue}

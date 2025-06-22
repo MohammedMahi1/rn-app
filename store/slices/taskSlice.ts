@@ -35,18 +35,7 @@ const taskSlice = createSlice({
         })
 
 
-        //Get data 
-        builder.addCase(insertInThunk.pending, (state, action) => {
-            console.log("pendding");
-
-        })
-        builder.addCase(insertInThunk.fulfilled, (state, action) => {
-            console.log("full");
-        })
-        builder.addCase(insertInThunk.rejected, (state, action) => {
-            console.log("reject");
-
-        })
+       
     }
 })
 

@@ -7,7 +7,7 @@ export const insertInThunk = createAsyncThunk("insertTask", async (data:string, 
   const { rejectWithValue } = thunkAPI;
 
   try {
-    await AsyncStorage.setItem('my-key', data);
+    await AsyncStorage.setItem('tasks', data);
   } catch (err) {
     console.log(rejectWithValue(err));
   }

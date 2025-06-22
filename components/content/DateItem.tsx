@@ -1,11 +1,12 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
-import { useAppSelector } from 'hooks/store';
+import { useAppDispatch, useAppSelector } from 'hooks/store';
 
 import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { insertInThunk } from 'store/async/thunkTasks';
 import { tasksSelector } from 'store/selectors/taskSelector';
 import { twMerge } from 'tailwind-merge';
 
@@ -45,8 +46,9 @@ const DateItem = ({  title }: DateItemProps) => {
   const data = useAppSelector(tasksSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
+  const dispatch = useAppDispatch()
   const insertHandler = () => {
-    console.log(data);
+    dispatch(insertInThunk("ggbgfbfbf"))
   }
   const getHandler = () => {
     console.log(data);
@@ -70,7 +72,7 @@ const DateItem = ({  title }: DateItemProps) => {
           <Input
             returnKeyType="done"
             onSubmitEditing={
-              insertHandler
+              getHandler
             }
             value={inputValue}
             onChangeText={setInputValue}

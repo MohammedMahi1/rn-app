@@ -43,28 +43,14 @@ const Task = ({ isChecked, title }: TaskProps) => {
 
 
 const DateItem = ({  title }: DateItemProps) => {
-  const db = useDb()
-  const dispatch = useAppDispatch()
+  // const db = useDb()
+  // const dispatch = useAppDispatch()
   const data = useAppSelector((state)=>state.tasks)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
- const [items, setItems] = useState<typeof monday.$inferSelect[]|null >(null);
 
   const getHandler = () => {
-              db.insert(monday).values([
-          {
-            task: "Laravel 11+"
-          },
-      ]).then(()=>{
-        console.log("gg")
-        
-      }).catch((err)=>{
-        console.log(err)
-        
-      });
-    console.log(items);
-
-    
+    console.log("gg");
   }
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
@@ -90,7 +76,6 @@ const DateItem = ({  title }: DateItemProps) => {
 
               
           }
-          <Button onPress={getHandler}>dcsdcsc</Button>
           <Input
             returnKeyType="done"
             onSubmitEditing={

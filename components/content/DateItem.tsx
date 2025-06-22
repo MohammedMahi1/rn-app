@@ -84,13 +84,13 @@ const DateItem = ({ title }: DateItemProps) => {
         isOpen &&
         <View className={twMerge("flex justify-between gap-10")}>
 
-          {/* <FlatList
+          <FlatList
           renderItem={item => <Task 
-            title={inputValue}
+            title={data.monday}
             isChecked={false}
           />}
           data={data}
-          /> */}
+          />
           <Input
             returnKeyType="done"
             onSubmitEditing={

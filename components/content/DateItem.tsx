@@ -1,4 +1,5 @@
 import { Checkbox } from '@futurejj/react-native-checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Input from 'components/ui/Input';
 import { Span } from 'components/ui/Typographie';
 import { useAppDispatch, useAppSelector } from 'hooks/store';
@@ -46,12 +47,14 @@ const DateItem = ({  title }: DateItemProps) => {
   const data = useAppSelector(tasksSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
+  const [tasks,setTasks] = useState()
   const dispatch = useAppDispatch()
   const insertHandler = () => {
     dispatch(insertInThunk("ggbgfbfbf"))
   }
-  const getHandler = () => {
-    console.log(data);
+  const getHandler = async() => {
+    console.log("dfvd");
+    
   }
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
@@ -73,6 +76,7 @@ const DateItem = ({  title }: DateItemProps) => {
             returnKeyType="done"
             onSubmitEditing={
               getHandler
+              // insertHandler
             }
             value={inputValue}
             onChangeText={setInputValue}

@@ -8,7 +8,6 @@ import { useState } from 'react'
 import { FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { insertInThunk } from 'store/async/thunkTasks';
-import { tasksSelector } from 'store/selectors/taskSelector';
 import { twMerge } from 'tailwind-merge';
 
 type DateItemProps = {
@@ -44,7 +43,6 @@ const Task = ({ isChecked, title }: TaskProps) => {
 const DateItem = ({  title }: DateItemProps) => {
   // const db = useDb()
   // const dispatch = useAppDispatch()
-  const data = useAppSelector(tasksSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
   const [tasks,setTasks] = useState()

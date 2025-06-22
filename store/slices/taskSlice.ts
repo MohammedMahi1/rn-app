@@ -6,6 +6,7 @@ type StateType = {
     task:string | undefined,
     isChecked:boolean
 }[]
+
 const initialState:StateType = []
 const taskSlice = createSlice({
     name:"task",

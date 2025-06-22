@@ -40,26 +40,36 @@ const Task = ({ isChecked, title }: TaskProps) => {
 
 
 
-const DateItem = ({  title }: DateItemProps) => {
+const DateItem = ({ title }: DateItemProps) => {
   // const db = useDb()
   // const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
-  const [tasks,setTasks] = useState()
+  const [tasks, setTasks] = useState()
   const dispatch = useAppDispatch()
   const insertHandler = () => {
-    dispatch(insertInThunk(`
-      {
-       monday:[
-       tasks:"React native with expo router",
-       isChecked : false
-       ] 
-      }
-      `))
+    const jsonValue = JSON.stringify({
+      monday: [
+        {
+          tasks: "React native with expo router",
+          isChecked: false
+        }
+      ]
+    });
+    dispatch(insertInThunk(jsonValue))
   }
-  const getHandler = async() => {
-    console.log("dfvd");
+
+
+  const getHandler = async () => {
+    try {
+      const res = await AsyncStorage.getItem('tasks');
+      console.log(res);
+      
+    } catch (err) {
+      console.log(err);
+    }
   }
+  
   return (
     <SafeAreaView className={twMerge('border-line border-b-2 items-start justify-between px-12 h-fit overflow-hidden')}>
       <Pressable className='py-4' onPress={() => setIsOpen(!isOpen)} >
@@ -79,8 +89,8 @@ const DateItem = ({  title }: DateItemProps) => {
           <Input
             returnKeyType="done"
             onSubmitEditing={
-              // getHandler
-              insertHandler
+              getHandler
+              // insertHandler
             }
             value={inputValue}
             onChangeText={setInputValue}
